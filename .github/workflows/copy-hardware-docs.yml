@@ -5,17 +5,13 @@ on:
     branches: [ main ]
     paths:
       - 'hardware/**'
-      - 'datasheet/**'
-      - 'template/**'
-      - 'scripts/build_datasheet.sh'
+      - 'tools/datasheet/**'
       - '.github/scripts/**'
       - '.github/workflows/copy-hardware-docs.yml'
   pull_request:
     paths:
       - 'hardware/**'
-      - 'datasheet/**'
-      - 'template/**'
-      - 'scripts/build_datasheet.sh'
+      - 'tools/datasheet/**'
       - '.github/scripts/**'
       - '.github/workflows/copy-hardware-docs.yml'
   workflow_dispatch: # Permite ejecutar manualmente
@@ -47,8 +43,8 @@ jobs:
 
     - name: Build datasheet from Markdown
       run: |
-        chmod +x scripts/build_datasheet.sh
-        scripts/build_datasheet.sh
+        chmod +x tools/datasheet/build.sh
+        tools/datasheet/build.sh
 
     - name: Clean previous documentation
       run: |

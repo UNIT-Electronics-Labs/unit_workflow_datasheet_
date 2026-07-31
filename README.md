@@ -53,7 +53,7 @@ This is a modular shield expansion board designed to be compatible with various 
 
 ## Automated datasheet build
 
-The datasheet is maintained as Markdown chapters under `datasheet/`. Pandoc
+The datasheet is maintained as Markdown chapters under `tools/datasheet/`. Pandoc
 assembles the chapters, and an HTML/CSS print template produces the final PDF
 with WeasyPrint. Pandoc also creates an editable DOCX. The normal hardware
 documentation workflow publishes the generated documents alongside the
@@ -62,11 +62,11 @@ schematic, pinouts, dimensions, and board images.
 To render the same output locally, install Pandoc and WeasyPrint, then run:
 
 ```bash
-./scripts/build_datasheet.sh
+./tools/datasheet/build.sh
 ```
 
-The generated Markdown, DOCX, and PDF are written to `build/datasheet/`. See
-[`datasheet/README.md`](datasheet/README.md) for the authoring workflow and
+The generated Markdown, DOCX, HTML, and PDF are written to `build/datasheet/`. See
+[`tools/datasheet/README.md`](tools/datasheet/README.md) for the authoring workflow and
 chapter structure.
 
 ## 📝 License
