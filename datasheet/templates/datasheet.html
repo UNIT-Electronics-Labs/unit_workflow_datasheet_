@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="$lang$">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Pandoc">
+  <title>$title$ — $subtitle$</title>
+  $for(css)$
+  <link rel="stylesheet" href="$css$">
+  $endfor$
+</head>
+<body>
+  <section class="cover">
+    <div class="cover__brand">
+      <img src="datasheet/assets/unit-logo.png" alt="UNIT Electronics">
+      <span>PRODUCT REFERENCE MANUAL</span>
+    </div>
+
+    <div class="cover__identity">
+      <p class="cover__eyebrow">DEVLAB FACTOR</p>
+      <h1>$title$</h1>
+      <p class="cover__part">Mfr. Part #: $part-number$</p>
+      <p class="cover__version">Version $version$</p>
+    </div>
+
+    <div class="cover__visual">
+      <div class="cover__halo"></div>
+      <img
+        src="hardware/resources/unit_top_v_1_0_0_ue0064_devlab_multihub_shield.png"
+        alt="Multi-Hub Shield top view">
+    </div>
+
+    <div class="cover__summary">
+      <p>
+        Multi-platform expansion, power distribution, control,
+        visualization and rapid prototyping in one modular shield.
+      </p>
+      <div class="cover__tags">
+        <span>I²C / QWIIC</span>
+        <span>SPI / UART</span>
+        <span>USB-C PD</span>
+        <span>Multi-platform</span>
+      </div>
+    </div>
+
+    <div class="cover__footer">
+      <span>UNIT Electronics® DevLab Module</span>
+      <span>Released $date$</span>
+    </div>
+  </section>
+
+  $if(toc)$
+  <section class="contents-page">
+    <p class="section-kicker">DOCUMENT MAP</p>
+    <h1>Contents</h1>
+    <div class="contents-page__rule"></div>
+    $toc$
+  </section>
+  $endif$
+
+  <article class="datasheet-content">
+    $body$
+  </article>
+</body>
+</html>

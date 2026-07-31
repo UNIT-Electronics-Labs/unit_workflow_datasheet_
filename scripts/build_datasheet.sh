@@ -4,17 +4,23 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BOOK_FILE="$PROJECT_DIR/datasheet/book.yml"
 REFERENCE_DOC="$PROJECT_DIR/datasheet/reference-a4.docx"
+HTML_TEMPLATE="$PROJECT_DIR/datasheet/templates/datasheet.html"
+HTML_STYLESHEET="$PROJECT_DIR/datasheet/styles/datasheet.css"
 OUTPUT_DIR="${1:-$PROJECT_DIR/build/datasheet}"
 OUTPUT_BASENAME="unit_datasheet_v_1_0_0_devlab_multi_hub_shield"
 
-for command_name in pandoc libreoffice; do
+for command_name in pandoc weasyprint; do
   if ! command -v "$command_name" >/dev/null 2>&1; then
     echo "Error: falta el comando requerido: $command_name" >&2
     exit 1
   fi
 done
 
-for required_file in "$BOOK_FILE" "$REFERENCE_DOC"; do
+for required_file in \
+  "$BOOK_FILE" \
+  "$REFERENCE_DOC" \
+  "$HTML_TEMPLATE" \
+  "$HTML_STYLESHEET"; do
   if [[ ! -f "$required_file" ]]; then
     echo "Error: no se encontró: $required_file" >&2
     exit 1
@@ -97,6 +103,7 @@ DOCUMENT_INPUTS=("$CONTENTS_FILE" "${CHAPTER_PATHS[@]}")
 
 MARKDOWN_FILE="$OUTPUT_DIR/$OUTPUT_BASENAME.md"
 DOCX_FILE="$OUTPUT_DIR/$OUTPUT_BASENAME.docx"
+HTML_FILE="$OUTPUT_DIR/$OUTPUT_BASENAME.html"
 PDF_FILE="$OUTPUT_DIR/$OUTPUT_BASENAME.pdf"
 
 pandoc \
@@ -116,22 +123,29 @@ pandoc \
   "${DOCUMENT_INPUTS[@]}" \
   --output="$DOCX_FILE"
 
-libreoffice \
-  --headless \
-  "-env:UserInstallation=file://$TEMP_DIR/libreoffice-profile" \
-  --convert-to pdf \
-  --outdir "$TEMP_DIR" \
-  "$DOCX_FILE"
+pandoc \
+  --from=markdown \
+  --to=html5 \
+  --standalone \
+  --toc \
+  --toc-depth=3 \
+  --embed-resources \
+  --metadata-file="$BOOK_FILE" \
+  --template="$HTML_TEMPLATE" \
+  --css="$HTML_STYLESHEET" \
+  --resource-path="$PROJECT_DIR" \
+  "${CHAPTER_PATHS[@]}" \
+  --output="$HTML_FILE"
 
-GENERATED_PDF="$TEMP_DIR/$OUTPUT_BASENAME.pdf"
-if [[ ! -s "$GENERATED_PDF" ]]; then
-  echo "Error: LibreOffice no generó el PDF." >&2
+weasyprint "$HTML_FILE" "$PDF_FILE"
+
+if [[ ! -s "$PDF_FILE" ]]; then
+  echo "Error: WeasyPrint no generó el PDF." >&2
   exit 1
 fi
-
-install -m 0644 "$GENERATED_PDF" "$PDF_FILE"
 
 echo "Datasheet construido:"
 echo "  Markdown: $MARKDOWN_FILE"
 echo "  DOCX:     $DOCX_FILE"
+echo "  HTML:     $HTML_FILE"
 echo "  PDF:      $PDF_FILE"

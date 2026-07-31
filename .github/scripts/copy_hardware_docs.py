@@ -448,6 +448,9 @@ def generate_html_page(file_structure):
     # Renderizar template
     template = Template(html_template)
     html_content = template.render(**template_data)
+    html_content = '\n'.join(
+        line.rstrip() for line in html_content.splitlines()
+    ).strip() + '\n'
 
     # Guardar archivo HTML
     html_file = DOCS_DIR / "index.html"

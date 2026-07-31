@@ -41,7 +41,9 @@ jobs:
     - name: Install document build tools
       run: |
         sudo apt-get update
-        sudo apt-get install --yes pandoc libreoffice-writer fonts-noto-core
+        sudo apt-get install --yes pandoc fonts-noto-core fonts-noto-mono
+        python -m pip install --upgrade pip
+        python -m pip install weasyprint
 
     - name: Build datasheet from Markdown
       run: |

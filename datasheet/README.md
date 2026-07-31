@@ -1,8 +1,8 @@
 # Datasheet authoring framework
 
 Este directorio es la fuente editable del datasheet. El contenido se mantiene
-en Markdown, Pandoc ensambla los capítulos en un DOCX y LibreOffice genera el
-PDF final.
+en Markdown, Pandoc ensambla los capítulos y WeasyPrint genera el PDF editorial
+desde la plantilla HTML/CSS. Pandoc también produce un DOCX secundario.
 
 `docs/` no es una fuente: es la salida publicada por el workflow.
 
@@ -24,7 +24,7 @@ Los capítulos actuales fueron migrados desde
 Requisitos:
 
 - Pandoc
-- LibreOffice Writer
+- WeasyPrint
 
 Desde la raíz del repositorio:
 
@@ -37,6 +37,7 @@ Los resultados quedan en `build/datasheet/`:
 ```text
 unit_datasheet_v_1_0_0_devlab_multi_hub_shield.md
 unit_datasheet_v_1_0_0_devlab_multi_hub_shield.docx
+unit_datasheet_v_1_0_0_devlab_multi_hub_shield.html
 unit_datasheet_v_1_0_0_devlab_multi_hub_shield.pdf
 ```
 
@@ -72,11 +73,16 @@ Durante CI, el documento se construye en `build/`, se incorpora temporalmente a
 `hardware/` y el generador normal del repositorio copia el paquete completo a
 `docs/hardware/`.
 
-## Plantilla visual
+## Plantillas visuales
 
-Pandoc usa `reference-a4.docx` como documento de referencia. Esta plantilla
-controla estilos, tamaño de página, encabezados y pies. Puede abrirse en Word o
-LibreOffice para personalizar los estilos.
+El PDF usa:
+
+- `templates/datasheet.html`: portada y estructura editorial.
+- `styles/datasheet.css`: formato A4, encabezados, pies, colores, tablas y
+  control de saltos de página.
+
+El DOCX usa `reference-a4.docx` como documento de referencia. Puede abrirse en
+Word o LibreOffice para personalizar sus estilos.
 
 El DOCX completo de `template/` se conserva como fuente histórica de la
 migración. No se usa directamente como referencia porque contiene relaciones
