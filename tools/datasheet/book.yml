@@ -8,7 +8,7 @@ part-number: "UE0064"
 date: "2026-06-05"
 toc-title: "Contents"
 
-# El orden de esta lista determina el orden del documento final.
+# The order of this list determines the chapter order in the final document.
 chapters:
   - tools/datasheet/chapters/00-description.md
   - tools/datasheet/chapters/01-board.md

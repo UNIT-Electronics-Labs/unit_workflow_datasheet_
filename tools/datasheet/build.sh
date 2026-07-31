@@ -11,7 +11,7 @@ OUTPUT_BASENAME="unit_datasheet_v_1_0_0_devlab_multi_hub_shield"
 
 for command_name in pandoc weasyprint; do
   if ! command -v "$command_name" >/dev/null 2>&1; then
-    echo "Error: falta el comando requerido: $command_name" >&2
+    echo "Error: required command not found: $command_name" >&2
     exit 1
   fi
 done
@@ -22,7 +22,7 @@ for required_file in \
   "$HTML_TEMPLATE" \
   "$HTML_STYLESHEET"; do
   if [[ ! -f "$required_file" ]]; then
-    echo "Error: no se encontró: $required_file" >&2
+    echo "Error: required file not found: $required_file" >&2
     exit 1
   fi
 done
@@ -36,14 +36,14 @@ mapfile -t CHAPTERS < <(
 )
 
 if [[ "${#CHAPTERS[@]}" -eq 0 ]]; then
-  echo "Error: book.yml no contiene capítulos." >&2
+  echo "Error: book.yml does not contain any chapters." >&2
   exit 1
 fi
 
 CHAPTER_PATHS=()
 for chapter in "${CHAPTERS[@]}"; do
   if [[ ! -f "$PROJECT_DIR/$chapter" ]]; then
-    echo "Error: falta el capítulo: $chapter" >&2
+    echo "Error: chapter not found: $chapter" >&2
     exit 1
   fi
   CHAPTER_PATHS+=("$PROJECT_DIR/$chapter")
@@ -51,7 +51,7 @@ done
 
 while IFS= read -r asset; do
   if [[ ! -f "$PROJECT_DIR/$asset" ]]; then
-    echo "Error: un capítulo referencia un recurso inexistente: $asset" >&2
+    echo "Error: a chapter references a missing asset: $asset" >&2
     exit 1
   fi
 done < <(
@@ -140,11 +140,11 @@ pandoc \
 weasyprint "$HTML_FILE" "$PDF_FILE"
 
 if [[ ! -s "$PDF_FILE" ]]; then
-  echo "Error: WeasyPrint no generó el PDF." >&2
+  echo "Error: WeasyPrint did not generate the PDF." >&2
   exit 1
 fi
 
-echo "Datasheet construido:"
+echo "Datasheet built successfully:"
 echo "  Markdown: $MARKDOWN_FILE"
 echo "  DOCX:     $DOCX_FILE"
 echo "  HTML:     $HTML_FILE"
