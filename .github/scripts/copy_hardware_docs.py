@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 HARDWARE_DIR = BASE_DIR / "hardware"
 DOCS_DIR = BASE_DIR / "docs"
 DOCS_HARDWARE_DIR = DOCS_DIR / "hardware"
-DATASHEET_BUILD_DIR = BASE_DIR / "build" / "datasheet"
+PRODUCT_REFERENCE_BUILD_DIR = BASE_DIR / "build" / "product-reference"
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp"}
 DOCUMENT_EXTENSIONS = {".pdf", ".docx", ".doc", ".txt", ".md"}
@@ -75,9 +75,9 @@ def classify_resource(name, extension):
     title = Path(name).stem.replace("_", " ").replace("-", " ").title()
     description = "Hardware resource"
 
-    if "datasheet" in lower_name:
+    if "product_reference" in lower_name or "product-reference" in lower_name:
         category = "Product documents"
-        title = "Product Datasheet"
+        title = "Product Reference"
         description = (
             "Publication-ready product reference"
             if extension == ".pdf"
@@ -190,7 +190,7 @@ def describe_file(file_path):
 
 
 def copy_hardware_files():
-    """Copy released hardware files and generated datasheet outputs."""
+    """Copy released hardware files and generated product reference outputs."""
     if not HARDWARE_DIR.is_dir():
         raise FileNotFoundError(f"Hardware directory not found: {HARDWARE_DIR}")
 
@@ -198,8 +198,8 @@ def copy_hardware_files():
         shutil.rmtree(DOCS_HARDWARE_DIR)
     shutil.copytree(HARDWARE_DIR, DOCS_HARDWARE_DIR)
 
-    if DATASHEET_BUILD_DIR.is_dir():
-        for generated_file in sorted(DATASHEET_BUILD_DIR.iterdir()):
+    if PRODUCT_REFERENCE_BUILD_DIR.is_dir():
+        for generated_file in sorted(PRODUCT_REFERENCE_BUILD_DIR.iterdir()):
             if generated_file.suffix.lower() in {".pdf", ".docx"}:
                 shutil.copy2(generated_file, DOCS_HARDWARE_DIR / generated_file.name)
 

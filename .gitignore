@@ -1,4 +1,4 @@
 /build/
 __pycache__/
 *.py[cod]
-/tools/datasheet/venv/
+/tools/product-reference/venv/

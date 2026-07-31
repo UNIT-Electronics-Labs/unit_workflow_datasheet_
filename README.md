@@ -13,7 +13,7 @@ This is a modular shield expansion board designed to be compatible with various 
 ### Quick Links
 
 [![Product Wiki](https://img.shields.io/badge/Product%20Wiki-blue?style=for-the-badge)]([#](https://wiki.uelectronics.com/wiki/unit_devlab_multi_hub_shield))
-[![Datasheet](https://img.shields.io/badge/Datasheet-green?style=for-the-badge)](docs/hardware/unit_datasheet_v_1_0_0_devlab_multi_hub_shield.pdf)
+[![Product Reference](https://img.shields.io/badge/Product%20Reference-green?style=for-the-badge)](docs/hardware/unit_product_reference_v_1_0_0_devlab_multi_hub_shield.pdf)
 [![Buy Now](https://img.shields.io/badge/Buy%20Now-orange?style=for-the-badge)]([#](https://uelectronics.com/))
 [![Getting Started](https://img.shields.io/badge/Getting%20Started-purple?style=for-the-badge)]([#](https://github.com/UNIT-Electronics-MX/unit_devlab_multi_hub_shield/wiki))
 
@@ -50,24 +50,6 @@ This is a modular shield expansion board designed to be compatible with various 
 - **Education:** Suitable for learning microcontroller basics.
 - **Wearables:** Compact and versatile for wearable devices.
 - **Displays:** Use the LED matrix for simple visual output.
-
-## Automated datasheet build
-
-The datasheet is maintained as Markdown chapters under `tools/datasheet/`. Pandoc
-assembles the chapters, and an HTML/CSS print template produces the final PDF
-with WeasyPrint. Pandoc also creates an editable DOCX. The normal hardware
-documentation workflow publishes the generated documents alongside the
-schematic, pinouts, dimensions, and board images.
-
-To render the same output locally, install Pandoc and WeasyPrint, then run:
-
-```bash
-./tools/datasheet/build.sh
-```
-
-The generated Markdown, DOCX, HTML, and PDF are written to `build/datasheet/`. See
-[`tools/datasheet/README.md`](tools/datasheet/README.md) for the authoring workflow and
-chapter structure.
 
 ## 📝 License
 
